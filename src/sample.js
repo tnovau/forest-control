@@ -1,1 +1,0 @@
-export const getSumResult = () => 1 + 1;
