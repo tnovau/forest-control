@@ -1,0 +1,36 @@
+{
+  "name": "control-forestal-backend",
+  "version": "0.0.1",
+  "description": "Control forestal backend",
+  "main": "./src/index.js",
+  "scripts": {
+    "lint": "eslint ./src/**/*.js ./test/**/*.test.js",
+    "test": "mocha ./test/**/*.test.js",
+    "test:coverage": "c8 --reporter=html --reporter=lcov --reporter=text npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/tnovau/control-forestal-backend.git"
+  },
+  "keywords": [
+    "javascript",
+    "node",
+    "control-forestal",
+    "drones"
+  ],
+  "author": "Tomás Novau",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tnovau/control-forestal-backend/issues"
+  },
+  "homepage": "https://github.com/tnovau/control-forestal-backend#readme",
+  "devDependencies": {
+    "c8": "7.3.1",
+    "eslint": "7.9.0",
+    "eslint-plugin-import": "2.20.0",
+    "eslint-plugin-node": "11.1.0",
+    "mocha": "8.1.3",
+    "sinon": "9.0.3"
+  },
+  "type": "module"
+}
