@@ -21,6 +21,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Installing packages
+      run: npm i
     - name: Run linter
       run: npm run lint
     - name: Get code coverage
