@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/tnovau/control-forestal-backend#readme",
   "devDependencies": {
+    "babel-eslint": "10.1.0",
     "c8": "7.3.1",
     "eslint": "7.9.0",
     "eslint-plugin-import": "2.20.0",

@@ -5,7 +5,7 @@ import {
   validateStringType,
   validateStringIsOneOf
 } from "../utils/string-validations.js";
-import { EAST_COORDINATE, NORTH_COORDINATE, SOUTH_COORDINATE, WEST_COORDINATE } from "./coordinates-constants.js";
+import { EAST_DIRECTION, NORTH_DIRECTION, SOUTH_DIRECTION, WEST_DIRECTION } from "./direction-constants.js";
 
 const COORDINATES_AND_DIRECTION_INPUT_FIELD_NAME = "coordinatesAndDirectionInput";
 const COORDINATE_X_FIELD_NAME = "coordinateX";
@@ -44,10 +44,10 @@ const validateAndParseCoordinateInput = (coordinateInput, coordinateInputName) =
 }
 
 const VALID_DIRECTIONS_LOOKUP = {
-  [EAST_COORDINATE]: true,
-  [NORTH_COORDINATE]: true,
-  [SOUTH_COORDINATE]: true,
-  [WEST_COORDINATE]: true
+  [EAST_DIRECTION]: true,
+  [NORTH_DIRECTION]: true,
+  [SOUTH_DIRECTION]: true,
+  [WEST_DIRECTION]: true
 }
 
 /**

@@ -16,9 +16,10 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: 'module',
   },
-  "rules": {
+  rules: {
     "node/no-unpublished-import": ["error", {
         "allowModules": ["chai", "sinon"]
     }]
-  }
+  },
+  parser: "babel-eslint"
 };

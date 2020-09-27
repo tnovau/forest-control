@@ -1,18 +1,19 @@
 import { throws, strictEqual } from "assert";
 import { Drone } from "../src/drone/drone.js";
+import { LEFT, MOVE, RIGHT } from "../src/drone/drone-actions-constants.js";
 import {
-  EAST_COORDINATE,
-  NORTH_COORDINATE,
-  SOUTH_COORDINATE,
-  WEST_COORDINATE
-} from "../src/drone/coordinates-constants.js";
+  EAST_DIRECTION,
+  NORTH_DIRECTION,
+  SOUTH_DIRECTION,
+  WEST_DIRECTION
+} from "../src/drone/direction-constants.js";
 
 describe('Drone', () => {
   [
-    EAST_COORDINATE,
-    NORTH_COORDINATE,
-    SOUTH_COORDINATE,
-    WEST_COORDINATE
+    EAST_DIRECTION,
+    NORTH_DIRECTION,
+    SOUTH_DIRECTION,
+    WEST_DIRECTION
   ].forEach(coordinate => {
       it(`should read the coordinateX, coordinateY and ${coordinate} direction`, () => {
         const drone = new Drone(`5 4 ${coordinate}`);
@@ -21,6 +22,86 @@ describe('Drone', () => {
         strictEqual(drone.direction, coordinate);
       });
     });
+
+  describe('Rotation', () => {
+    it(`should rotate from ${EAST_DIRECTION} to ${SOUTH_DIRECTION} 90º`, () => {
+      const drone = new Drone(`5 4 ${EAST_DIRECTION}`);
+      drone.do(RIGHT);
+      strictEqual(drone.direction, SOUTH_DIRECTION);
+    });
+
+    it(`should rotate from ${EAST_DIRECTION} to ${WEST_DIRECTION} 180º`, () => {
+      const drone = new Drone(`5 4 ${EAST_DIRECTION}`);
+      drone.do(`${RIGHT}${RIGHT}`);
+      strictEqual(drone.direction, WEST_DIRECTION);
+    });
+
+    it(`should rotate from ${EAST_DIRECTION} to ${NORTH_DIRECTION} 270º`, () => {
+      const drone = new Drone(`5 4 ${EAST_DIRECTION}`);
+      drone.do(`${RIGHT}${RIGHT}${RIGHT}`);
+      strictEqual(drone.direction, NORTH_DIRECTION);
+    });
+
+    it(`should rotate from ${EAST_DIRECTION} to ${EAST_DIRECTION} 360º`, () => {
+      const drone = new Drone(`5 4 ${EAST_DIRECTION}`);
+      drone.do(`${RIGHT}${RIGHT}${RIGHT}${RIGHT}`);
+      strictEqual(drone.direction, EAST_DIRECTION);
+    });
+
+    it(`should rotate from ${EAST_DIRECTION} to ${NORTH_DIRECTION} -90º`, () => {
+      const drone = new Drone(`5 4 ${EAST_DIRECTION}`);
+      drone.do(LEFT);
+      strictEqual(drone.direction, NORTH_DIRECTION);
+    });
+
+    it(`should rotate from ${EAST_DIRECTION} to ${WEST_DIRECTION} -180º`, () => {
+      const drone = new Drone(`5 4 ${EAST_DIRECTION}`);
+      drone.do(`${LEFT}${LEFT}`);
+      strictEqual(drone.direction, WEST_DIRECTION);
+    });
+
+    it(`should rotate from ${EAST_DIRECTION} to ${SOUTH_DIRECTION} -270º`, () => {
+      const drone = new Drone(`5 4 ${EAST_DIRECTION}`);
+      drone.do(`${LEFT}${LEFT}${LEFT}`);
+      strictEqual(drone.direction, SOUTH_DIRECTION);
+    });
+
+    it(`should rotate from ${EAST_DIRECTION} to ${EAST_DIRECTION} -360º`, () => {
+      const drone = new Drone(`5 4 ${EAST_DIRECTION}`);
+      drone.do(`${LEFT}${LEFT}${LEFT}${LEFT}`);
+      strictEqual(drone.direction, EAST_DIRECTION);
+    });
+  });
+
+  describe('Translation', () => {
+    it(`move 1 to the ${EAST_DIRECTION}`, () => {
+      const drone = new Drone(`5 2 ${EAST_DIRECTION}`);
+      drone.do(MOVE);
+      strictEqual(drone.coordinateX, 6);
+      strictEqual(drone.coordinateY, 2);
+    });
+
+    it(`move 1 to the ${WEST_DIRECTION}`, () => {
+      const drone = new Drone(`5 2 ${WEST_DIRECTION}`);
+      drone.do(MOVE);
+      strictEqual(drone.coordinateX, 4);
+      strictEqual(drone.coordinateY, 2);
+    });
+
+    it(`move 1 to the ${NORTH_DIRECTION}`, () => {
+      const drone = new Drone(`5 2 ${NORTH_DIRECTION}`);
+      drone.do(MOVE);
+      strictEqual(drone.coordinateX, 5);
+      strictEqual(drone.coordinateY, 3);
+    });
+
+    it(`move 1 to the ${SOUTH_DIRECTION}`, () => {
+      const drone = new Drone(`5 2 ${SOUTH_DIRECTION}`);
+      drone.do(MOVE);
+      strictEqual(drone.coordinateX, 5);
+      strictEqual(drone.coordinateY, 1);
+    });
+  });
 
   describe('should validate that the coordinates and direction input', () => {
     it('is an string', () => {
@@ -59,6 +140,12 @@ describe('Drone', () => {
   describe('should validate the direction', () => {
     it('is E, N, S or O', () => {
       throws(() => new Drone('5 5 A'), new Error('direction should be one of these: E, N, S, O.'));
+    });
+  });
+
+  describe('should validate the drone actions', () => {
+    it('is L, M, R', () => {
+      throws(() => new Drone(`5 4 ${EAST_DIRECTION}`).do('LRLRMA'), new Error('action should be one of these: L, M, R.'));
     });
   });
 });
