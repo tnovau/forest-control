@@ -35,3 +35,7 @@ export interface IDrone {
   direction: DirectionTypes;
   do: (action: DroneActionTypes) => void;
 }
+
+export interface IDroneFactory {
+  create(coordinatesAndDirectionInput: string): IDrone;
+}

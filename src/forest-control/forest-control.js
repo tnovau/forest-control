@@ -1,7 +1,28 @@
-import { AreaToFlyOver } from "../area-to-fly-over/area-to-fly-over.js";
-import { Drone } from "../drone/drone.js";
-
 export class ForestControl {
+  /**
+   * @type {import('../area-to-fly-over/area-to-fly-over-types').IAreaToFlyOverFactory}
+   */
+  #areaToFlyOverFactory;
+  /**
+   * @type {import('../drone/drone-types').IDroneFactory}
+   */
+  #droneFactory
+  /**
+   * @type {import('../drone/drone-types').IDroneActions}
+   */
+  #droneActions
+
+  /**
+   * @param {import('../area-to-fly-over/area-to-fly-over-types').IAreaToFlyOverFactory} areaToFlyOverFactory
+   * @param {import('../drone/drone-types').IDroneFactory} droneFactory
+   * @param {import('../drone/drone-types').IDroneActions} droneActions
+   */
+  constructor(areaToFlyOverFactory, droneFactory, droneActions) {
+    this.#areaToFlyOverFactory = areaToFlyOverFactory;
+    this.#droneFactory = droneFactory;
+    this.#droneActions = droneActions;
+  }
+
   /**
    * @param {string} instructionsInput
    */
@@ -14,15 +35,15 @@ export class ForestControl {
       .join('\n')
       .split('\n');
 
-    const areaToFlyOver = new AreaToFlyOver(areaToFlyOverDimensions);
+    const areaToFlyOver = this.#areaToFlyOverFactory.create(areaToFlyOverDimensions);
 
     for (let i = 0; i < droneConfigurations.length; i += 2) {
       const coordinatesAndDirectionInput = droneConfigurations[i];
-      const actionsToDo = droneConfigurations[i + 1];
+      const actionsToDo = this.#droneActions.getActions(droneConfigurations[i + 1]);
 
-      const drone = new Drone(coordinatesAndDirectionInput);
+      const drone = this.#droneFactory.create(coordinatesAndDirectionInput);
       areaToFlyOver.validateDroneStartingPointIsInsideAreaToFlyOver(drone);
-      drone.do(actionsToDo);
+      actionsToDo.forEach(actionToDo => drone.do(actionToDo));
       console.log(drone.coordinateX, drone.coordinateY, drone.direction);
     }
   }
