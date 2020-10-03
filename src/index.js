@@ -6,4 +6,6 @@ const instructions = "5 5\n3 3 E\nL\n3 3 E\nMMRMMRMRRM\n1 2 N\nLMLMLMLMMLMLMLMLM
  * @type {import('./forest-control/forest-control-types').IForestControl}
  */
 const forestControl = configureDI().get(ForestControl.name);
-forestControl.process(instructions);
+forestControl.process(instructions).forEach(
+  drone => console.log(drone.coordinateX, drone.coordinateY, drone.direction)
+);
