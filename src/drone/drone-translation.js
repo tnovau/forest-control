@@ -21,7 +21,7 @@ export class DroneTranslation {
    * @param {number} coordinateX
    * @param {number} coordinateY
    */
-  translate(direction, coordinateX, coordinateY) {
+  getTranslateTo(direction, coordinateX, coordinateY) {
     return TranslationFunctionMap[direction](coordinateX, coordinateY);
   }
 }

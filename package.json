@@ -5,6 +5,7 @@
   "main": "./src/index.js",
   "scripts": {
     "lint": "eslint ./src/**/*.js ./test/**/*.test.js",
+    "start": "node ./src/index.js",
     "test": "mocha ./test/**/*.test.js",
     "test:coverage": "c8 --reporter=html --reporter=lcov --reporter=text npm run test"
   },

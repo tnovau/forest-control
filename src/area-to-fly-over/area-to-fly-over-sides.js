@@ -1,9 +1,9 @@
 import { validateMinLength } from "../utils/string-validations.js";
 import { validateIsPositive } from "../utils/number-validations.js";
-import { SIDE_A_SIDE_B_SEPARATOR } from "./area-to-fly-over-constants.js";
+import { SIDE_X_SIDE_Y_SEPARATOR } from "./area-to-fly-over-constants.js";
 
-const SIDE_A_VARIABLE_NAME = 'sideA';
-const SIDE_B_VARIABLE_NAME = 'sideB';
+const SIDE_X_VARIABLE_NAME = 'sideX';
+const SIDE_Y_VARIABLE_NAME = 'sideY';
 const SIDE_MIN_LENGTH = 1;
 
 /**
@@ -17,13 +17,15 @@ const validateAndParseSideInput = (sideInput, sideName) => {
   return side;
 }
 
-export class AreaToFlyOverSideInputs {
+export class AreaToFlyOverSides {
   /**
    * @param {string} inputDimensions
    */
-  constructor(inputDimensions) {
-    const [sideAInput, sideBInput] = inputDimensions.split(SIDE_A_SIDE_B_SEPARATOR);
-    this.sideA = validateAndParseSideInput(sideAInput, SIDE_A_VARIABLE_NAME);
-    this.sideB = validateAndParseSideInput(sideBInput, SIDE_B_VARIABLE_NAME);
+  getAreaSides(inputDimensions) {
+    const [sideXInput, sideYInput] = inputDimensions.split(SIDE_X_SIDE_Y_SEPARATOR);
+    return {
+      sideX: validateAndParseSideInput(sideXInput, SIDE_X_VARIABLE_NAME),
+      sideY: validateAndParseSideInput(sideYInput, SIDE_Y_VARIABLE_NAME)
+    };
   }
 }

@@ -61,14 +61,19 @@ export class DroneCoordinatesAndDirection {
   /**
    * @param {string} coordinatesAndDirectionInput
    */
-  constructor(coordinatesAndDirectionInput) {
+  parseCoordinatesAndDirection(coordinatesAndDirectionInput) {
     validateDroneCoordinatesAndDirectionInput(coordinatesAndDirectionInput);
     const [coordinateXInput, coordinateYInput, directionInput] = coordinatesAndDirectionInput.split(
       COORDINATES_AND_DIRECTION_INPUT_SEPARATOR
     );
-    this.coordinateX = validateAndParseCoordinateInput(coordinateXInput, COORDINATE_X_FIELD_NAME);
-    this.coordinateY = validateAndParseCoordinateInput(coordinateYInput, COORDINATE_Y_FIELD_NAME);
+    const coordinateX = validateAndParseCoordinateInput(coordinateXInput, COORDINATE_X_FIELD_NAME);
+    const coordinateY = validateAndParseCoordinateInput(coordinateYInput, COORDINATE_Y_FIELD_NAME);
     validateDirectionInput(directionInput);
-    this.direction = directionInput;
+    const direction = directionInput;
+    return {
+      coordinateX,
+      coordinateY,
+      direction
+    }
   }
 }

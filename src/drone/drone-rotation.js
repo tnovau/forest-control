@@ -26,9 +26,6 @@ export class DroneRotation {
    * @param {import('./drone-types').DirectionTypes} direction
    */
   getRotateTo(action, direction) {
-    if (action === RIGHT) {
-      return rotateToRightMap[direction];
-    }
-    return rotateToLeftMap[direction];
+    return (action === RIGHT) ? rotateToRightMap[direction] : rotateToLeftMap[direction];
   }
 }

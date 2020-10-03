@@ -1,27 +1,19 @@
-import { validateIncludesString, validateMinLength, validateStringType } from "../utils/string-validations.js";
-import { AreaToFlyOverSideInputs } from "./area-to-fly-over-side-inputs.js";
-import { SIDE_A_SIDE_B_SEPARATOR } from "./area-to-fly-over-constants.js";
-
-const INPUT_DIMENSIONS_VARIABLE_NAME = 'inputDimensions';
-const MINIMUM_INPUT_DIMENSION_LENGTH = 3;
-
-/**
- * @param {string} inputDimensions
- */
-const validateInputDimensions = inputDimensions => {
-  validateStringType(inputDimensions, INPUT_DIMENSIONS_VARIABLE_NAME);
-  validateMinLength(inputDimensions, MINIMUM_INPUT_DIMENSION_LENGTH, INPUT_DIMENSIONS_VARIABLE_NAME);
-  validateIncludesString(inputDimensions, SIDE_A_SIDE_B_SEPARATOR, INPUT_DIMENSIONS_VARIABLE_NAME);
-}
-
 export class AreaToFlyOver {
   /**
-   * @param {string} inputDimensions
+   * @param {number} sideX
+   * @param {number} sideY
    */
-  constructor(inputDimensions) {
-    validateInputDimensions(inputDimensions);
-    const { sideA, sideB } = new AreaToFlyOverSideInputs(inputDimensions);
-    this.sideA = sideA;
-    this.sideB = sideB;
+  constructor(sideX, sideY) {
+    this.sideX = sideX;
+    this.sideY = sideY;
+  }
+
+  /**
+   * @param {import('../drone/drone-types').IDrone} drone
+   */
+  validateDroneStartingPointIsInsideAreaToFlyOver(drone) {
+    if (drone.coordinateX > this.sideX || drone.coordinateY > this.sideY) {
+      throw new Error(`This drone can't start in this position. X: ${drone.coordinateX}, Y: ${drone.coordinateY}.`);
+    }
   }
 }

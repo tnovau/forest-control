@@ -1,1 +1,1 @@
-export const SIDE_A_SIDE_B_SEPARATOR = ' ';
+export const SIDE_X_SIDE_Y_SEPARATOR = ' ';

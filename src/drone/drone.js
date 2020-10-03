@@ -1,49 +1,46 @@
-import { DroneActions } from "./drone-actions.js";
-import { DroneCoordinatesAndDirection } from "./drone-coordinates-and-direction-input.js";
-import { DroneRotation } from "./drone-rotation.js";
 import { MOVE } from "./drone-actions-constants.js";
-import { DroneTranslation } from "./drone-translation.js";
 
 export class Drone {
-  /** @type {import('./drone-rotation').DroneRotation}*/
+  /** @type {import('./drone-types').IDroneRotation}*/
   #droneRotation;
-  /** @type {import('./drone-translation').DroneTranslation} */
+  /** @type {import('./drone-types').IDroneTranslation} */
   #droneTranslation;
 
   /**
-   * @param {string} coordinatesAndDirectionInput
+   * @param {import('./drone-types').IDroneRotation} droneRotation
+   * @param {import('./drone-types').IDroneTranslation} droneTranslation
+   * @param {number} coordinateX
+   * @param {number} coordinateY
+   * @param {import('./drone-types').DirectionTypes} direction
    */
-  constructor(coordinatesAndDirectionInput) {
-    const {
-      coordinateX,
-      coordinateY,
-      direction
-    } = new DroneCoordinatesAndDirection(coordinatesAndDirectionInput);
+  constructor(
+    droneRotation,
+    droneTranslation,
+    coordinateX,
+    coordinateY,
+    direction
+  ) {
+    this.#droneRotation = droneRotation;
+    this.#droneTranslation = droneTranslation;
     this.coordinateX = coordinateX;
     this.coordinateY = coordinateY;
     this.direction = direction;
-    this.#droneRotation = new DroneRotation();
-    this.#droneTranslation = new DroneTranslation();
   }
 
   /**
-   * @param {string} actionsInput
+   * @param {import('./drone-types').DroneActionTypes} action
    */
-  do(actionsInput) {
-    new DroneActions(actionsInput)
-      .actions
-      .forEach(action => {
-        if (action === MOVE) {
-          const { x, y } = this.#droneTranslation.translate(
-            this.direction,
-            this.coordinateX,
-            this.coordinateY
-          );
-          this.coordinateX = x;
-          this.coordinateY = y;
-        } else {
-          this.direction = this.#droneRotation.getRotateTo(action, this.direction);
-        }
-      });
+  do(action) {
+    if (action === MOVE) {
+      const { x, y } = this.#droneTranslation.getTranslateTo(
+        this.direction,
+        this.coordinateX,
+        this.coordinateY
+      );
+      this.coordinateX = x;
+      this.coordinateY = y;
+    } else {
+      this.direction = this.#droneRotation.getRotateTo(action, this.direction);
+    }
   }
 }
