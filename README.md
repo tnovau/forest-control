@@ -1,4 +1,4 @@
-# Control forestal
+# Forest control
 
 ## Uses
 - [mocha](https://mochajs.org/): test runner.
@@ -10,6 +10,12 @@
 - Node 13+ (recommended node 14)
 
 ## Commands
+### Run app
+
+```bash
+npm start
+```
+
 ### Run unit tests
 
 ```bash
