@@ -5,6 +5,7 @@
 - [sinon](https://sinonjs.org/): test doubles.
 - [eslint](https://eslint.org/): linter.
 - [c8](https://www.npmjs.com/package/c8): coverage.
+- [rsdi](https://github.com/radzserg/rsdi): Dependency injection 🚀.
 
 ## Requirements
 - Node 13+ (recommended node 14)
